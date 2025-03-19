@@ -4,9 +4,10 @@ import (
 	"context"
 	"fmt"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"github.com/bcp-innovations/hyperlane-cosmos/util"
 	"github.com/bcp-innovations/hyperlane-cosmos/x/core/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func (ms msgServer) CreateMailbox(ctx context.Context, req *types.MsgCreateMailbox) (*types.MsgCreateMailboxResponse, error) {
@@ -119,6 +120,9 @@ func (ms msgServer) SetMailbox(ctx context.Context, req *types.MsgSetMailbox) (*
 	}
 
 	if req.NewOwner != "" {
+		if _, err := ms.k.addressCodec.StringToBytes(req.NewOwner); err != nil {
+			return nil, err
+		}
 		mailbox.Owner = req.NewOwner
 	}
 

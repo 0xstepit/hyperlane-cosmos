@@ -4,20 +4,18 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	pdTypes "github.com/bcp-innovations/hyperlane-cosmos/x/core/02_post_dispatch/types"
-
-	ismtypes "github.com/bcp-innovations/hyperlane-cosmos/x/core/01_interchain_security/types"
-
 	"cosmossdk.io/math"
-
-	i "github.com/bcp-innovations/hyperlane-cosmos/tests/integration"
-	"github.com/bcp-innovations/hyperlane-cosmos/util"
-	"github.com/bcp-innovations/hyperlane-cosmos/x/core/keeper"
-	"github.com/bcp-innovations/hyperlane-cosmos/x/core/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/gogoproto/proto"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+
+	i "github.com/bcp-innovations/hyperlane-cosmos/tests/integration"
+	"github.com/bcp-innovations/hyperlane-cosmos/util"
+	ismtypes "github.com/bcp-innovations/hyperlane-cosmos/x/core/01_interchain_security/types"
+	pdTypes "github.com/bcp-innovations/hyperlane-cosmos/x/core/02_post_dispatch/types"
+	"github.com/bcp-innovations/hyperlane-cosmos/x/core/keeper"
+	"github.com/bcp-innovations/hyperlane-cosmos/x/core/types"
 )
 
 /*
@@ -363,7 +361,7 @@ var _ = Describe("msg_mailbox.go", Ordered, func() {
 		noopIsmId := createNoopIsm(s, sender.Address)
 		defaultHookId := createIgp(s, creator.Address)
 		requiredHookId := createIgp(s, creator.Address)
-		newOwner := "new_owner"
+		newOwner := i.GenerateTestValidatorAddress("NewOwner").AccAddress.String()
 
 		// Act
 		_, err := s.RunTx(&types.MsgSetMailbox{
@@ -391,7 +389,7 @@ var _ = Describe("msg_mailbox.go", Ordered, func() {
 		mailboxId, requiredHook, defaultHook, _ := createValidMailbox(s, creator.Address, "noop", 1)
 
 		noopIsmId := createNoopIsm(s, sender.Address)
-		newOwner := "new_owner"
+		newOwner := i.GenerateTestValidatorAddress("NewOwner").AccAddress.String()
 
 		// Act
 		_, err := s.RunTx(&types.MsgSetMailbox{
@@ -421,7 +419,7 @@ var _ = Describe("msg_mailbox.go", Ordered, func() {
 		noopIsmId := createNoopIsm(s, sender.Address)
 		defaultHookId := createIgp(s, creator.Address)
 		requiredHookId := createIgp(s, creator.Address)
-		newOwner := "new_owner"
+		newOwner := i.GenerateTestValidatorAddress("NewOwner").AccAddress.String()
 
 		// Act
 		_, err := s.RunTx(&types.MsgSetMailbox{
